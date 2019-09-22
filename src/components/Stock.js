@@ -1,16 +1,18 @@
 import React from 'react'
 
-const Stock = () => (
-  <div>
 
-    <div className="card">
-      <div className="card-body">
+const Stock = (id,name,price, ticker, type,buy ) => (
+
+  <div key={id}>
+
+    <div className="card" sector={type}>
+      <div className="card-body" onClick={()=>{buy(id)}}>
         <h5 className="card-title">{
-            //Company Name
+            name
           }</h5>
-        <p className="card-text">{
-            //ticker: stock price
-          }</p>
+        <p className="card-text">
+            {ticker}:   ${price}
+          </p>
       </div>
     </div>
 
