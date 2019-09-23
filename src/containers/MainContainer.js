@@ -9,7 +9,9 @@ class MainContainer extends Component {
   state ={
       allStocks: [],
       displayStocks: [],
-     portfolio: []
+     portfolio: [],
+     Alphabetically: false,
+    Price: false
   }
 
   componentDidMount(){
@@ -29,25 +31,47 @@ class MainContainer extends Component {
   }
   addToPortfolio =(id)=>{
     const purchasedStock = this.state.allStocks.find(stock => stock.id === id)
+    !this.state.portfolio.includes(purchasedStock) ? this.setState({ portfolio: [purchasedStock,...this.state.portfolio]}) : "you Own this Stock already"
+    const stocksLeftToBuy = this.state.displayStocks.filter(stock => !this.state.portfolio.includes(stock))
+    this.setState({
+      displayStocks : stocksLeftToBuy
+    })
+  
+  }
+ 
 
+
+
+  
+  sorter=(attr)=>{
+    // debugger
+    let sorted
+        attr === "Alphabetically" ?  sorted = this.state.displayStocks.sort((a,b) => a.ticker > b.ticker ? 1 : -1) : sorted = this.state.displayStocks.sort((a,b) => a.price < b.price ? 1 : -1)
       this.setState({
-        portfolio: [purchasedStock,...this.state.portfolio]
-  })
-        // console.log(purchasedStock)
+          displayStocks : sorted
+      })
   }
 
-handleSelect=()=>{
 
+
+
+selectFilter=(attribute)=>{
+  // debugger
+  if(attribute !==""){
+  const atr= this.state.allStocks.filter(stock => stock.type === attribute)
+  this.setState({
+    displayStocks: atr
+  })
 }
-
-handleRadios=()=>{
-        
+else{
+  this.componentDidMount()
+}
 
 }
   render() {
     return (
       <div>
-        <SearchBar selctFilter={this.handleSelect} radioFilters={this.handleRadios}/>
+        <SearchBar selectFilter={this.selectFilter} radioSorter={this.sorter} />
 
           <div className="row">
             <div className="col-8">
