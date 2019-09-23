@@ -1,23 +1,25 @@
-import React from 'react'
+import React from "react";
 
-
-const Stock = (id,name,price, ticker, type,buy ) => (
-
-  <div key={id}>
-
-    <div className="card" sector={type}>
-      <div className="card-body" onClick={()=>{buy(id)}}>
-        <h5 className="card-title">{
-            name
-          }</h5>
-        <p className="card-text">
-            {ticker}:   ${price}
+const Stock = props => {
+  const { id, type, name, ticker, price } = props.info;
+  
+  return (
+    <div >
+      <div className="card" sector={type}>
+        <div
+          className="card-body"
+          onClick={() => {
+            props.exchange(id);
+          }}
+        >
+          <h5 className="card-title">{name}</h5>
+          <p className="card-text">
+            {ticker}: ${price}
           </p>
+        </div>
       </div>
     </div>
+  );
+};
 
-
-  </div>
-);
-
-export default Stock
+export default Stock;

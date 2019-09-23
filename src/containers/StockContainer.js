@@ -5,16 +5,12 @@ class StockContainer extends Component {
 
   theStocks =()=>{
     return this.props.stocks.map(stock =>{
-       return Stock(stock.id, stock.name,stock.price, stock.ticker, stock.type,this.props.purchase)
-    }
-    )
-
+       return <Stock key={stock.id} info={stock} exchange={this.props.buySell}/>})
       
   }
 
   render() {
     
-
     return (
       <div>
         <h2>Stocks</h2>
